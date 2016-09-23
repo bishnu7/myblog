@@ -1,0 +1,3 @@
+#define($getUser)
+    SELECT * FROM user WHERE name = '$name';
+#end;

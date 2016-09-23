@@ -1,3 +1,4 @@
+import com.sd.dao.DaoMapifier;
 import com.sd.dao.SdConnection;
 import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
@@ -29,7 +30,10 @@ public class HelloServlet extends HttpServlet
 
         try
         {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM user");
+            DaoMapifier mapifier = new DaoMapifier();
+            mapifier.addParam("getUser", "getUser");
+            mapifier.addParam("name", "Sam Dahal");
+            ResultSet rs = stmt.executeQuery(mapifier.getQueryString());
 
             while (rs.next())
             {
