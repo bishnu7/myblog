@@ -2,9 +2,25 @@ package com.sd.dto;
 
 public class PersonDto
 {
+    private Integer id;
     private String firstName;
     private String lastName;
     private boolean active;
+
+    public PersonDto(Integer id, String firstName, String lastName, boolean active) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.active = active;
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

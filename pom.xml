@@ -54,6 +54,12 @@
       <artifactId>mockito-all</artifactId>
       <version>1.9.5</version>
     </dependency>
+    <dependency>
+      <groupId>org.jdbi</groupId>
+      <artifactId>jdbi</artifactId>
+      <version>2.76</version>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>blog</finalName>
