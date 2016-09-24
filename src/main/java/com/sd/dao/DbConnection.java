@@ -2,17 +2,15 @@ package com.sd.dao;
 
 import com.sd.exception.ConnectionFailException;
 import org.apache.log4j.Logger;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import static com.sd.constants.AppConst.*;
 
-
-public class SdConnection
+public class DbConnection
 {
-    private static final Logger LOGGER = Logger.getLogger(SdConnection.class);
+    private static final Logger LOGGER = Logger.getLogger(DbConnection.class);
 
     public static Connection getDbConnection()
     {
