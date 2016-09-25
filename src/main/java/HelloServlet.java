@@ -31,7 +31,10 @@ public class HelloServlet extends HttpServlet
         System.out.println("Executing findByID " + personDto);*/
 
         PersonDto personDto = personDao.findById(1);
-        System.out.println(personDto);
+        System.out.println("findById " + personDto);
+
+        PersonDto sam = personDao.findByFirstName("Sam");
+        System.out.println("findByFirstname "  + sam);
 
     }
 }
