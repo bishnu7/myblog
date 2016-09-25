@@ -7,7 +7,6 @@ import com.sd.sql.PersonDaoSQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDaoImpl implements PersonDao
@@ -43,7 +42,7 @@ public class PersonDaoImpl implements PersonDao
     }
 
     public List<PersonDto> findByCity(String city) {
-        List<PersonDto> personDtos = new ArrayList<PersonDto>();
+        List<PersonDto> personDtos = null;
         Connection connection = DbConnection.getDbConnection();
         Integer cityId = null;
         PreparedStatement prepStmt;
@@ -68,16 +67,8 @@ public class PersonDaoImpl implements PersonDao
             prepStmt = connection.prepareStatement(PersonDaoSQL.findByCity());
             prepStmt.setInt(1, cityId);
             ResultSet rs = prepStmt.executeQuery();
-            while (rs.next())
-            {
-                PersonDto personDto = new PersonDto();
-                personDto.setId(rs.getInt("id"));
-                personDto.setFirstName(rs.getString("firstName"));
-                personDto.setLastName(rs.getString("lastName"));
-                personDto.setActive(rs.getBoolean("active"));
-                personDto.setCity(rs.getString("city"));
-                personDtos.add(personDto);
-            }
+            ResultSetMapper resultSetMapper = new ResultSetMapper();
+            personDtos = resultSetMapper.mapRersultSetToObject(rs, PersonDto.class);
         }
         catch (Exception e)
         {
