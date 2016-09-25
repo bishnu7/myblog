@@ -91,6 +91,16 @@ public class PersonDaoImpl implements PersonDao
             e.printStackTrace();
         }
 
+        try
+        {
+            if(connection != null)
+                connection.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
         return personDtos;
     }
 }
