@@ -7,7 +7,6 @@ import com.sd.sql.PersonDaoSQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +37,7 @@ public class PersonDaoImpl implements PersonDao
             e.printStackTrace();
         }
 
-        try
-        {
-            connection.close();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        DbConnection.close(connection);
 
         return personDto;
     }
@@ -91,15 +84,7 @@ public class PersonDaoImpl implements PersonDao
             e.printStackTrace();
         }
 
-        try
-        {
-            if(connection != null)
-                connection.close();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        DbConnection.close(connection);
 
         return personDtos;
     }

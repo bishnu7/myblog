@@ -6,6 +6,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
+
 import static com.sd.constants.AppConst.*;
 
 public class DbConnection
@@ -35,5 +37,20 @@ public class DbConnection
         LOGGER.debug("connection created sucessfully...");
 
         return connection;
+    }
+
+    public static void close(Connection connection)
+    {
+        if(connection != null)
+        {
+            try
+            {
+                connection.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }
