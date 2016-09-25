@@ -57,8 +57,6 @@ public class ResultSetMapper<T>
         {
             if(rs != null)
             {
-
-                ResultSetMetaData resultSetMetaData = rs.getMetaData();
                 Field[] fields = clazz.getDeclaredFields();
                 while(rs.next())
                 {
@@ -67,8 +65,8 @@ public class ResultSetMapper<T>
                     if(output == null)
                         output = new ArrayList<T>();
                     output.add(bean);
-                    }
                 }
+            }
         }
         catch (Exception e)
         {
