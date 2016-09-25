@@ -2,6 +2,7 @@ package com.sd.dao;
 
 import com.sd.dao.connection.DbConnection;
 import com.sd.dto.PersonDto;
+import com.sd.sql.PersonDaoSQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,24 +18,12 @@ public class PersonDaoImpl implements PersonDao
     {
         PersonDto personDto = new PersonDto();
         Connection connection = DbConnection.getDbConnection();
-
-        String sql = "SELECT " +
-                        "u.id as id, " +
-                        "u.first_name as firstName, " +
-                        "u.last_name as lastName, " +
-                        "u.active as active, " +
-                        "(SELECT c.name FROM city c WHERE c.id = u.city_id) as city " +
-                     "FROM " +
-                        "user u " +
-                     "WHERE " +
-                        "u.id = ?";
         PreparedStatement preparedStmt;
         try
         {
-            preparedStmt = connection.prepareStatement(sql);
+            preparedStmt = connection.prepareStatement(PersonDaoSQL.findById());
             preparedStmt.setInt(1, id);
             ResultSet rs = preparedStmt.executeQuery();
-            System.out.println(sql);
             while(rs.next())
             {
                 personDto.setId(rs.getInt("id"));
@@ -83,17 +72,7 @@ public class PersonDaoImpl implements PersonDao
 
         try
         {
-            String sql = "SELECT " +
-                            "u.id as id, " +
-                            "u.first_name as firstName, " +
-                            "u.last_name as lastName, " +
-                            "u.active as active, " +
-                            "(SELECT c.name FROM city c WHERE u.city_id = c.id) as city " +
-                        "FROM " +
-                            "user u " +
-                        "WHERE " +
-                            "u.city_id = ?";
-            prepStmt = connection.prepareStatement(sql);
+            prepStmt = connection.prepareStatement(PersonDaoSQL.findByCity());
             prepStmt.setInt(1, cityId);
             ResultSet rs = prepStmt.executeQuery();
             while (rs.next())
