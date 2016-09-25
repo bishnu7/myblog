@@ -46,6 +46,7 @@ public class DbConnection
             try
             {
                 connection.close();
+                LOGGER.debug("Connection closed successfully");
             }
             catch (SQLException e)
             {
