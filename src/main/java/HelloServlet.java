@@ -1,15 +1,13 @@
-import com.sd.dao.connection.JDBIConnection;
 import com.sd.dao.PersonDao;
+import com.sd.dao.PersonDaoImpl;
 import com.sd.dto.PersonDto;
 import org.apache.log4j.Logger;
-import org.skife.jdbi.v2.DBI;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class HelloServlet extends HttpServlet
 {
@@ -19,18 +17,7 @@ public class HelloServlet extends HttpServlet
         final Logger LOG = Logger.getLogger(HelloServlet.class);
         LOG.debug("executing do get post");
 
-        DBI connection = JDBIConnection.getConnection();
-
-        PersonDao personDao = connection.open(PersonDao.class);
-
-        personDao.insert("Rakesh", "Sharma", true);
-
-        List<PersonDto> persons = personDao.findAll();
-
-        for(PersonDto personDto : persons)
-        {
-            System.out.println(personDto.getFirstName());
-        }
+        PersonDao personDao = new PersonDaoImpl();
 
         PersonDto personDto = personDao.findById(1);
 

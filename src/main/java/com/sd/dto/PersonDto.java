@@ -1,18 +1,16 @@
 package com.sd.dto;
 
+import java.util.List;
+
 public class PersonDto
 {
     private Integer id;
     private String firstName;
     private String lastName;
     private boolean active;
-
-    public PersonDto(Integer id, String firstName, String lastName, boolean active) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.active = active;
-        this.id = id;
-    }
+    private String city;
+    private List<String> hobbies;
+    private char gender;
 
     public Integer getId() {
         return id;
@@ -46,12 +44,40 @@ public class PersonDto
         this.active = active;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public List<String> getHobbies() {
+        return hobbies;
+    }
+
+    public void setHobbies(List<String> hobbies) {
+        this.hobbies = hobbies;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "PersonDto{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", active=" + active +
+                ", city='" + city + '\'' +
+                ", hobbies=" + hobbies +
+                ", gender=" + gender +
                 '}';
     }
 }
