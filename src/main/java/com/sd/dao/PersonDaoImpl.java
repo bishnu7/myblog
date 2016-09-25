@@ -59,7 +59,7 @@ public class PersonDaoImpl implements PersonDao
             prepStmt = connection.prepareStatement(PersonDaoSQL.findByCity());
             prepStmt.setInt(1, cityId);
             ResultSet rs = prepStmt.executeQuery();
-            ResultSetMapper resultSetMapper = new ResultSetMapper();
+            ResultSetMapper<PersonDto> resultSetMapper = new ResultSetMapper();
             personDtos = resultSetMapper.mapResultSetToObjects(rs, PersonDto.class);
         }
         catch (Exception e)
