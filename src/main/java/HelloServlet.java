@@ -30,7 +30,7 @@ public class HelloServlet extends HttpServlet
 
         System.out.println("Executing findByID " + personDto);*/
 
-        PersonDto personDto = personDao.findByFirstName("Sam");
+        PersonDto personDto = personDao.findById(1);
         System.out.println(personDto);
 
     }

@@ -7,29 +7,24 @@ import com.sd.sql.PersonDaoSQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PersonDaoImpl implements PersonDao
 {
 
     public PersonDto findById(int id)
     {
-        PersonDto personDto = new PersonDto();
-        Connection connection = DbConnection.getDbConnection();
-        PreparedStatement preparedStmt;
-        try
-        {
-            preparedStmt = connection.prepareStatement(PersonDaoSQL.findById());
-            preparedStmt.setInt(1, id);
-            ResultSet rs = preparedStmt.executeQuery();
-            ResultSetMapper<PersonDto> resultSetMapper = new ResultSetMapper();
-            personDto = resultSetMapper.mapResultSetToObject(rs, PersonDto.class);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        DbConnection.close(connection);
+        PersonDto personDto;
+        Map<String, Object> params = new LinkedHashMap<String, Object>();
+        Map<Integer, Object> prepStmtParams = new LinkedHashMap<Integer, Object>();
+        params.put("sql", PersonDaoSQL.findById());
+        params.put("class", PersonDto.class);
+        prepStmtParams.put(1, id);
+        params.put("stmtParams", prepStmtParams);
+        GenericResultFinder<PersonDto> resultFinder = new GenericResultFinder<PersonDto>();
+        personDto = resultFinder.find(params);
         return personDto;
     }
 
@@ -79,7 +74,7 @@ public class PersonDaoImpl implements PersonDao
             prepStmt = connection.prepareStatement(PersonDaoSQL.findByCity());
             prepStmt.setInt(1, cityId);
             ResultSet rs = prepStmt.executeQuery();
-            ResultSetMapper<PersonDto> resultSetMapper = new ResultSetMapper();
+            ResultSetMapper<PersonDto> resultSetMapper = new ResultSetMapper<PersonDto>();
             personDtos = resultSetMapper.mapResultSetToObjects(rs, PersonDto.class);
         }
         catch (Exception e)
