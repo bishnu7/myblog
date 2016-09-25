@@ -22,22 +22,14 @@ public class PersonDaoImpl implements PersonDao
             preparedStmt = connection.prepareStatement(PersonDaoSQL.findById());
             preparedStmt.setInt(1, id);
             ResultSet rs = preparedStmt.executeQuery();
-            while(rs.next())
-            {
-                personDto.setId(rs.getInt("id"));
-                personDto.setFirstName(rs.getString("firstName"));
-                personDto.setLastName(rs.getString("lastName"));
-                personDto.setActive(rs.getBoolean("active"));
-                personDto.setCity(rs.getString("city"));
-            }
+            ResultSetMapper<PersonDto> resultSetMapper = new ResultSetMapper();
+            personDto = resultSetMapper.mapResultSetToObject(rs, PersonDto.class);
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-
         DbConnection.close(connection);
-
         return personDto;
     }
 
@@ -68,7 +60,7 @@ public class PersonDaoImpl implements PersonDao
             prepStmt.setInt(1, cityId);
             ResultSet rs = prepStmt.executeQuery();
             ResultSetMapper resultSetMapper = new ResultSetMapper();
-            personDtos = resultSetMapper.mapRersultSetToObject(rs, PersonDto.class);
+            personDtos = resultSetMapper.mapResultSetToObjects(rs, PersonDto.class);
         }
         catch (Exception e)
         {
