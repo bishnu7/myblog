@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class HelloServlet extends HttpServlet
 {
@@ -20,16 +19,19 @@ public class HelloServlet extends HttpServlet
 
         PersonDao personDao = new PersonDaoImpl();
 
-        PersonDto personDto = personDao.findById(1);
+       // PersonDto personDto = personDao.findById(1);
 
-        List<PersonDto> personDtos = personDao.findByCity("Chicago");
+        //List<PersonDto> personDtos = personDao.findByCity("Chicago");
 
-        for(PersonDto personDto1 : personDtos)
+        /*for(PersonDto personDto1 : personDtos)
         {
             System.out.println("print findbyCity " + personDto1);
         }
 
-        System.out.println("Executing findByID " + personDto);
+        System.out.println("Executing findByID " + personDto);*/
+
+        PersonDto personDto = personDao.findByFirstName("Sam");
+        System.out.println(personDto);
 
     }
 }

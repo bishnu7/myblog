@@ -30,4 +30,18 @@ public class PersonDaoSQL
                 "WHERE " +
                     "u.id = ?";
     }
+
+    public static String findByFirstName()
+    {
+        return  "SELECT " +
+                "u.id as id, " +
+                "u.first_name as firstName, " +
+                "u.last_name as lastName, " +
+                "u.active as active, " +
+                "(SELECT c.name FROM city c WHERE u.city_id = c.id) as city " +
+                "FROM " +
+                "user u " +
+                "WHERE " +
+                "u.first_name = ?";
+    }
 }

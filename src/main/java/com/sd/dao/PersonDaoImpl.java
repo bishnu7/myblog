@@ -33,6 +33,26 @@ public class PersonDaoImpl implements PersonDao
         return personDto;
     }
 
+    public PersonDto findByFirstName(String firstName)
+    {
+        Connection connection = DbConnection.getDbConnection();
+        PreparedStatement prepStmt;
+        PersonDto personDto = null;
+        try
+        {
+            prepStmt = connection.prepareStatement(PersonDaoSQL.findByFirstName());
+            prepStmt.setString(1, firstName);
+            ResultSet rs = prepStmt.executeQuery();
+            ResultSetMapper<PersonDto> mapper = new ResultSetMapper<PersonDto>();
+            personDto = mapper.mapResultSetToObject(rs, PersonDto.class);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return personDto;
+    }
+
     public List<PersonDto> findByCity(String city) {
         List<PersonDto> personDtos = null;
         Connection connection = DbConnection.getDbConnection();
