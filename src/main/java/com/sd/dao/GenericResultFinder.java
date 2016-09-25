@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import static com.sd.constants.AppConst.*;
 
 public class GenericResultFinder<T>
 {
@@ -18,8 +19,8 @@ public class GenericResultFinder<T>
         PreparedStatement prepStmt;
         try
         {
-            prepStmt = connection.prepareStatement(params.get("sql").toString());
-            Map<Integer, Object> prepStmtParams = (LinkedHashMap<Integer,Object>)(params.get("stmtParams"));
+            prepStmt = connection.prepareStatement(params.get(SQL).toString());
+            Map<Integer, Object> prepStmtParams = (LinkedHashMap<Integer,Object>)(params.get(STMT_PARAMS));
             for(Map.Entry<Integer, Object> pair : prepStmtParams.entrySet())
             {
                 if(pair.getValue() instanceof Integer)
@@ -36,7 +37,7 @@ public class GenericResultFinder<T>
             }
             ResultSet rs = prepStmt.executeQuery();
             ResultSetMapper<T> resultSetMapper = new ResultSetMapper<T>();
-            result = resultSetMapper.mapResultSetToObject(rs, (Class) params.get("class"));
+            result = resultSetMapper.mapResultSetToObject(rs, (Class) params.get(CLASS));
             DbConnection.close(connection);
         }
         catch (Exception e)

@@ -11,6 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.sd.constants.AppConst.*;
+
 public class PersonDaoImpl implements PersonDao
 {
 
@@ -19,10 +21,10 @@ public class PersonDaoImpl implements PersonDao
         PersonDto personDto;
         Map<String, Object> params = new LinkedHashMap<String, Object>();
         Map<Integer, Object> prepStmtParams = new LinkedHashMap<Integer, Object>();
-        params.put("sql", PersonDaoSQL.findById());
-        params.put("class", PersonDto.class);
+        params.put(SQL, PersonDaoSQL.findById());
+        params.put(CLASS, PersonDto.class);
         prepStmtParams.put(1, id);
-        params.put("stmtParams", prepStmtParams);
+        params.put(STMT_PARAMS, prepStmtParams);
         GenericResultFinder<PersonDto> resultFinder = new GenericResultFinder<PersonDto>();
         personDto = resultFinder.find(params);
         return personDto;
@@ -30,21 +32,15 @@ public class PersonDaoImpl implements PersonDao
 
     public PersonDto findByFirstName(String firstName)
     {
-        Connection connection = DbConnection.getDbConnection();
-        PreparedStatement prepStmt;
-        PersonDto personDto = null;
-        try
-        {
-            prepStmt = connection.prepareStatement(PersonDaoSQL.findByFirstName());
-            prepStmt.setString(1, firstName);
-            ResultSet rs = prepStmt.executeQuery();
-            ResultSetMapper<PersonDto> mapper = new ResultSetMapper<PersonDto>();
-            personDto = mapper.mapResultSetToObject(rs, PersonDto.class);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        PersonDto personDto;
+        Map<String, Object> params = new LinkedHashMap<String, Object>();
+        Map<Integer, Object> prepStmtParams = new LinkedHashMap<Integer, Object>();
+        params.put(SQL, PersonDaoSQL.findByFirstName());
+        params.put(CLASS, PersonDto.class);
+        prepStmtParams.put(1, firstName);
+        params.put(STMT_PARAMS, prepStmtParams);
+        GenericResultFinder<PersonDto> resultFinder = new GenericResultFinder<PersonDto>();
+        personDto = resultFinder.find(params);
         return personDto;
     }
 
