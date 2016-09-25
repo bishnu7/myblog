@@ -1,4 +1,4 @@
-import com.sd.dao.JDBIConnection;
+import com.sd.dao.connection.JDBIConnection;
 import com.sd.dao.PersonDao;
 import com.sd.dto.PersonDto;
 import org.apache.log4j.Logger;
@@ -31,6 +31,10 @@ public class HelloServlet extends HttpServlet
         {
             System.out.println(personDto.getFirstName());
         }
+
+        PersonDto personDto = personDao.findById(1);
+
+        System.out.println("Executing findByID " + personDto);
 
     }
 }

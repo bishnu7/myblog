@@ -1,4 +1,4 @@
-package com.sd.dao;
+package com.sd.dao.connection;
 
 import org.skife.jdbi.v2.DBI;
 

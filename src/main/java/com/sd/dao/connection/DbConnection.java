@@ -1,4 +1,4 @@
-package com.sd.dao;
+package com.sd.dao.connection;
 
 import com.sd.exception.ConnectionFailException;
 import org.apache.log4j.Logger;
