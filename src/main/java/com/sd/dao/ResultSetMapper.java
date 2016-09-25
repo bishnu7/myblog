@@ -95,7 +95,8 @@ public class ResultSetMapper<T>
                 }
             }
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
